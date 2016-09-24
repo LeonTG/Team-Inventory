@@ -1,0 +1,10 @@
+name: ${project.name}
+main: ${project.groupId}.${project.artifactId}.Main
+version: ${project.version}
+author: LeonTG77
+description: Teams can open a inventory shared between the team using a command.
+
+commands:
+  teaminv:
+    description: Open the team inventory.
+    aliases: [ti]
