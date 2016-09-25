@@ -1,5 +1,5 @@
 /*
- * Project: Team-Inventory
+ * Project: TeamInventory
  * Class: com.leontg77.teaminv.Main
  *
  * The MIT License (MIT)
@@ -28,6 +28,8 @@
 package com.leontg77.teaminv;
 
 import com.google.common.collect.Maps;
+import com.leontg77.teaminv.commands.TeamInvCommand;
+import com.leontg77.teaminv.listeners.DeathListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -46,7 +48,10 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        DeathListener listener = new DeathListener(this);
+        TeamInvCommand cmd = new TeamInvCommand(this, listener);
 
+        getCommand("teaminv").setExecutor(cmd);
     }
 
     private final Map<Team, Inventory> teamInvs = Maps.newHashMap();
