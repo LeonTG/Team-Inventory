@@ -8,6 +8,8 @@ ___
 
 **Commands:**
 
+`/teaminv` - *Open the team inventory. (If scenario is enabled)*
+
 `/teaminv info` - *View plugin information.*
 
 `/teaminv enable` - *Enable the scenario.*
