@@ -41,7 +41,7 @@ import java.util.Map;
 /**
  * The main class of the plugin.
  *
- * @author LeonTG77
+ * @author LeonTG
  */
 public class Main extends JavaPlugin {
     public static final String PREFIX = "§cTeam Inv §8» §7";
@@ -49,7 +49,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         DeathListener listener = new DeathListener(this);
-        TeamInvCommand cmd = new TeamInvCommand(this, listener);
+        TeamInvCommand cmd = new TeamInvCommand(this, new Settings(this), listener);
 
         getCommand("teaminv").setExecutor(cmd);
     }

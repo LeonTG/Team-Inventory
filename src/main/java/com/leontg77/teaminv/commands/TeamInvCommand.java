@@ -29,6 +29,7 @@ package com.leontg77.teaminv.commands;
 
 import com.google.common.collect.Lists;
 import com.leontg77.teaminv.Main;
+import com.leontg77.teaminv.Settings;
 import com.leontg77.teaminv.listeners.DeathListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -47,20 +48,22 @@ import java.util.stream.Collectors;
 /**
  * TeamInv command class.
  *
- * @author LeonTG77
+ * @author LeonTG
  */
 public class TeamInvCommand implements CommandExecutor, TabCompleter {
     private static final String PERMISSION = "teaminv.manage";
 
+    private final Settings settings;
     private final Main plugin;
 
     private final DeathListener listener;
     private final Scoreboard board;
 
-    public TeamInvCommand(Main plugin, DeathListener listener) {
-        this.listener = listener;
+    public TeamInvCommand(Main plugin, Settings settings, DeathListener listener) {
+        this.settings = settings;
         this.plugin = plugin;
 
+        this.listener = listener;
         this.board = Bukkit.getScoreboardManager().getMainScoreboard();
     }
 
@@ -84,7 +87,7 @@ public class TeamInvCommand implements CommandExecutor, TabCompleter {
                 }
 
                 if (!plugin.getTeamInvs().containsKey(team)) {
-                    plugin.getTeamInvs().put(team, Bukkit.createInventory(player, 36, "§4Team Inventory"));
+                    plugin.getTeamInvs().put(team, Bukkit.createInventory(player, settings.getConfig().getInt("rows", 4), "§4Team Inventory - " + team.getName()));
                 }
 
                 player.openInventory(plugin.getTeamInvs().get(team));

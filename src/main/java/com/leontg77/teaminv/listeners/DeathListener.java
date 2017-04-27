@@ -43,7 +43,7 @@ import org.bukkit.scoreboard.Team;
 /**
  * Death listener class.
  *
- * @author LeonTG77
+ * @author LeonTG
  */
 public class DeathListener implements Listener {
     private final Scoreboard board;
