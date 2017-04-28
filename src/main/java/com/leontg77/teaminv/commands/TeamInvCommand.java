@@ -41,9 +41,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.util.StringUtil;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * TeamInv command class.
@@ -72,12 +72,7 @@ public class TeamInvCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            if (sender instanceof Player) {
-                if (!enabled) {
-                    sender.sendMessage(Main.PREFIX + "Usage: /teaminv <info|enable|disable>");
-                    return true;
-                }
-
+            if (sender instanceof Player && enabled) {
                 Player player = (Player) sender;
                 Team team = board.getPlayerTeam(player);
 
@@ -87,7 +82,7 @@ public class TeamInvCommand implements CommandExecutor, TabCompleter {
                 }
 
                 if (!plugin.getTeamInvs().containsKey(team)) {
-                    plugin.getTeamInvs().put(team, Bukkit.createInventory(player, settings.getConfig().getInt("rows", 4), "§4Team Inventory - " + team.getName()));
+                    plugin.getTeamInvs().put(team, Bukkit.createInventory(player, settings.getConfig().getInt("rows", 4) * 9, "§4Team Inventory - " + team.getName()));
                 }
 
                 player.openInventory(plugin.getTeamInvs().get(team));
@@ -98,7 +93,7 @@ public class TeamInvCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args[0].equalsIgnoreCase("info")) {
-            sender.sendMessage(Main.PREFIX + "Plugin creator: §aLeonTG77");
+            sender.sendMessage(Main.PREFIX + "Plugin creator: §aLeonTG");
             sender.sendMessage(Main.PREFIX + "Version: §a" + plugin.getDescription().getVersion());
             sender.sendMessage(Main.PREFIX + "Description:");
             sender.sendMessage("§8» §f" + plugin.getDescription().getDescription());
@@ -148,11 +143,10 @@ public class TeamInvCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-        List<String> toReturn = Lists.newArrayList();
         List<String> list = Lists.newArrayList();
 
         if (args.length != 1) {
-            return toReturn;
+            return Lists.newArrayList();
         }
 
         list.add("info");
@@ -162,13 +156,6 @@ public class TeamInvCommand implements CommandExecutor, TabCompleter {
             list.add("disable");
         }
 
-        // make sure to only tab complete what starts with what they
-        // typed or everything if they didn't type anything
-        toReturn.addAll(list
-                .stream()
-                .filter(str -> args[args.length - 1].isEmpty() || str.startsWith(args[args.length - 1].toLowerCase()))
-                .collect(Collectors.toList()));
-
-        return toReturn;
+        return StringUtil.copyPartialMatches(args[args.length - 1], list, Lists.newArrayList());
     }
 }

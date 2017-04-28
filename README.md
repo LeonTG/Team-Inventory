@@ -2,7 +2,7 @@
 
 **Description:**
 
-Throughout the game, you and your teammates can access an inventory that is shared among your team using /ti. There is no physical inventory, so any teammate can access it from anywhere. The items in the inventory is dropped when the last player on that team dies.
+Using /ti, people can open a inventory shared between their team.
 
 ___
 

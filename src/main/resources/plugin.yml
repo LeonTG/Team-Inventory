@@ -1,8 +1,8 @@
 name: ${project.name}
 main: ${project.groupId}.${project.artifactId}.Main
 version: ${project.version}
-author: LeonTG77
-description: Teams can open a inventory shared between the team using a command.
+author: LeonTG
+description: Using /ti, people can open a inventory shared between their team.
 
 commands:
   teaminv:
